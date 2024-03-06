@@ -1,0 +1,21 @@
+<script type='text/javascript' defer>
+	/**
+	 * SUPP-16452
+	 * This fixes the issue with disabled scrolling after closing the TL lightbox on a specific page.
+	 * This is a conflict between TL and Elementor.
+	 * On click event didnt work so we had to use mousedown event.
+	 */
+	jQuery( function($) {
+		$( 'body' ).on( 'mousedown', '.tve_lb_open', function (e) {
+			if ( $( this ).find( e.target ).hasClass( 'tcb-local-vars-root' ) || "path" === e.target.tagName ) {
+				setTimeout(
+					function() {
+						$( 'html, body' ).removeClass( 'tve-o-hidden tve-l-open tve-hide-overflow' );
+						$( 'body' ).css({ padding: '0' });
+					},
+					1000
+				);
+			}
+		});
+	});
+</script>
